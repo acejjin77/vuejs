@@ -29,6 +29,6 @@ npm run build
 ```
 
 # Library list
-Vue
-Axios
-Vuetify
+- Vue
+- Axios
+- Vuetify
