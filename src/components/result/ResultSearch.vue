@@ -19,10 +19,10 @@ const nowYYYYmmdd = '20240102'
 //     return year+month+day;
 // })
 
-const dateFrom = ref(null);
-const dateTo = ref(null);
-const searchKind = ref(null);
-const sclResultList = ref(null);
+const dateFrom = ref('');
+const dateTo = ref('');
+const search = ref('')
+const sclResultList = ref([]);
 const axiosConfig = {
   headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const axiosConfig = {
 
 async function getSclResult() {
   try {
-    
+
     const requestOptions = {
       result_kind: 1,
       date_kind : 2,
@@ -64,26 +64,97 @@ const dateRules = [
     return '8자리 필수'
   }
 ];
+
+const headers = ref([
+    {
+      text: '접수일자',
+      align: 'start',
+      sortable: true,
+      key: 'orddate'
+    },
+    {
+      text: '환자명',
+      key: 'pname',
+      align: 'end'
+    },
+    {
+      text: '결과',
+      key: 'result',
+      sortable: false,
+      align: 'end'
+    }
+  ])
 </script>
 
 
 
 <template>
-  <v-container no-gutters class="">
+  <v-container fluid>
     <v-form @submit.prevent="getSclResult">
-      <v-layout>
-        <v-text-field v-model="dateFrom" :rules="dateRules" :counter="8" label="From" required></v-text-field>
-        <v-text-field v-model="dateTo" :rules="dateRules" :counter="8" label="To" required></v-text-field>
-        <v-btn :disable="isFormValid" class="mt-2" text="결과 조회" type="submit" variant="outlined"></v-btn>
-      </v-layout>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="dateFrom"
+            :counter="8"
+            label="From"
+            :rules="dateRules"
+            class="mr-4 mb-4"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="dateTo"
+            :counter="8"
+            label="To"
+            :rules="dateRules"
+            class="mr-4 mb-4"
+            required
+          ></v-text-field>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+      <v-row>
+        <v-btn
+          outlined
+          color="blue"
+          elevation="8"
+          class="text-none mb-6"
+          type="submit">
+          결과조회
+        </v-btn>
+      </v-row>
     </v-form>
-    <v-layout>
-      <div v-for="(field, title) in sclResultList">
-        <li :key="title">
-          <span :class="title"> key : {{ title }}</span><br>
-          <span :class="title"> value : {{ field }} </span>
-        </li>
-      </div>
-    </v-layout>
+
+    <v-row>
+      <v-data-table
+        :search="search"
+        :items="sclResultList"
+        item-value="name"
+        select-strategy="single"
+        :mobile="false"
+        density="compact"
+      >
+        <template #top>
+          <v-toolbar
+            density="compact"
+            :elevation="10"
+            theme="dark"
+            color="primary"
+            >
+            <v-toolbar-title>SCL 결과 리스트</v-toolbar-title>
+            <v-text-field
+              v-model="search"
+              label="검색"
+              prepend-inner-icon="mdi-magnify"
+              variant="outlined"
+              hide-details
+              single-line
+            ></v-text-field>
+          </v-toolbar>
+        </template>
+
+      </v-data-table>
+    </v-row>
   </v-container>
 </template>

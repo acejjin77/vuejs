@@ -3,22 +3,22 @@ import { ref } from 'vue';
 import ResultSearch from './components/result/ResultSearch.vue';
 
 const drawer = ref(null)
-
 </script>
 
 
 <template>
-  <v-app>
-      <v-app-bar title="검사결과조회"></v-app-bar>
+  <v-app id="inspire">
+    <v-navigation-drawer v-model="drawer">
 
-      <v-navigation-drawer>
-        <v-list>
-          <v-list-item title="Navigation item-1"></v-list-item>
-          <v-list-item title="Navigation item-2"></v-list-item>
-        </v-list>
-      </v-navigation-drawer>
+    </v-navigation-drawer>
 
-    <v-main class="" style="min-width: 300px;">
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-app-bar-title>SCL 결과조회</v-app-bar-title>
+    </v-app-bar>
+
+    <v-main>
       <ResultSearch></ResultSearch>
     </v-main>
   </v-app>
