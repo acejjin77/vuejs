@@ -2,23 +2,6 @@
 import { computed, ref } from 'vue';
 import axios from 'axios';
 
-const nowYYYYmmdd = '20240102'
-// const nowYYYYmmdd = computed(() => { 
-//     const today = new Date();
-//     const year = today.getFullYear();
-//     let month = today.getMonth() + 1;
-//     let day = today.getDate();
-
-//     if (month < 10) {
-//       month = '0' + month;
-//     }
-//     if (day < 10) {
-//       day = '0' + day;
-//     }
-
-//     return year+month+day;
-// })
-
 const dateFrom = ref('');
 const dateTo = ref('');
 const search = ref('')
@@ -65,25 +48,8 @@ const dateRules = [
   }
 ];
 
-const headers = ref([
-    {
-      text: '접수일자',
-      align: 'start',
-      sortable: true,
-      key: 'orddate'
-    },
-    {
-      text: '환자명',
-      key: 'pname',
-      align: 'end'
-    },
-    {
-      text: '결과',
-      key: 'result',
-      sortable: false,
-      align: 'end'
-    }
-  ])
+const noResultText = '자료가 없습니다.';
+const itemsPerPageTxt = '';
 </script>
 
 
@@ -130,6 +96,8 @@ const headers = ref([
       <v-data-table
         :search="search"
         :items="sclResultList"
+        :no-data-text="noResultText"
+        :items-per-page-text="itemsPerPageTxt"
         item-value="name"
         select-strategy="single"
         :mobile="false"
