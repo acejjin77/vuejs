@@ -99,18 +99,18 @@ function showPatient(event, {item}) {
             required
           ></v-text-field>
         </v-col>
+        <v-col>
+          <v-btn
+            outlined
+            color="blue"
+            elevation="8"
+            class="text-none mt-6"
+            type="submit"
+            @click="load">
+            결과조회
+          </v-btn>
+        </v-col>
         <v-spacer></v-spacer>
-      </v-row>
-      <v-row>
-        <v-btn
-          outlined
-          color="blue"
-          elevation="8"
-          class="text-none mb-6"
-          type="submit"
-          @click="load">
-          결과조회
-        </v-btn>
       </v-row>
     </v-form>
 
