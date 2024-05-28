@@ -21,10 +21,11 @@ const dateRules = [
 ];
 
 const loading = ref(false)
-  function load () {
-    loading.value = true
-    setTimeout(() => (loading.value = false), 3000)
-  }
+
+function load () {
+  loading.value = true
+  setTimeout(() => (loading.value = false), 3000)
+}
 
 // JSON 데이터 호출 부분
 const axiosConfig = {
@@ -111,6 +112,8 @@ function showPatient(event, {item}) {
           </v-btn>
         </v-col>
         <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
       </v-row>
     </v-form>
 
@@ -121,13 +124,12 @@ function showPatient(event, {item}) {
           :items="sclResultList"
           :no-data-text="noResultText"
           :items-per-page-text="itemsPerPageTxt"
-          item-value="name"
-          select-strategy="single"
-          :mobile="false"
           :loading="loading"
           loading-text="환자 리스트 로딩 중..."
           :headers="tableHeaders"
           @click:row="showPatient"
+          select-strategy="single"
+          :mobile="false"
         >
           <template #top>
             <v-toolbar
@@ -152,6 +154,17 @@ function showPatient(event, {item}) {
       </v-col>
       <v-col>
         <div v-if="selectedPatient != null">
+          <v-row>
+            <v-col>
+              환자이름
+            </v-col>
+            <v-col>
+              차트번호
+            </v-col>
+            <v-col>
+              바코드번호
+            </v-col>
+          </v-row>
           <v-row>
             <v-col>
               {{ selectedPatient.PNAME }}

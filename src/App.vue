@@ -2,14 +2,15 @@
 import { ref } from 'vue';
 import ResultSearch from './components/result/ResultSearch.vue';
 
-const drawer = ref(null)
+const drawer = ref(false)
+
 </script>
 
 
 <template>
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer">
-
+      
     </v-navigation-drawer>
 
     <v-app-bar>
@@ -19,7 +20,7 @@ const drawer = ref(null)
     </v-app-bar>
 
     <v-main>
-      <ResultSearch></ResultSearch>
+      <ResultSearch />
     </v-main>
   </v-app>
 </template>

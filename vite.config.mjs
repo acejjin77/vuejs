@@ -42,7 +42,7 @@ export default defineConfig({
     ],
   },
   server: {
-    port: 3000,
+    port: 5173,
     proxy: {
       '/scl': {
         target: 'http://localhost:6500',
